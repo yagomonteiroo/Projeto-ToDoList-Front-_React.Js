@@ -1,0 +1,8 @@
+.warp{
+   display:flex;
+   flex-wrap: wrap;
+}
+
+p{
+   border:none !important;
+}
