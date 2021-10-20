@@ -85,7 +85,7 @@ const Edicao = (props) => {
                   <div className="row">
                      <div className="col">
                         <div className="form-floating mb-3">
-                           <select className="form-control" name="prioridade" id="floatingprioridade" placeholder="Selecione a Prioridade" value={tarefa.prioridade} onChange={handleFieldsChange}>
+                           <select value={tarefa.prioridade} className="form-control" name="prioridade" id="floatingprioridade" placeholder="Selecione a Prioridade" onChange={handleFieldsChange}>
                               <option value="baixa">Baixa</option>
                               <option value="media">Média</option>
                               <option value="alta">Alta</option>
@@ -95,7 +95,7 @@ const Edicao = (props) => {
                      </div>
                      <div className="col">
                         <div className="form-floating">
-                           <select className="form-control" name="status" id="floatingstatus" placeholder="Digite a Status" value={tarefa.status} onChange={handleFieldsChange}>
+                           <select value={tarefa.status} className="form-control" name="status" id="floatingstatus" placeholder="Digite a Status"  onChange={handleFieldsChange}>
                               <option value="a fazer">A fazer</option>
                               <option value="fazendo">Fazendo</option>
                               <option value="feito">Feito</option>
