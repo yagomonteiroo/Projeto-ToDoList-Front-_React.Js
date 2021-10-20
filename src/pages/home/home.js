@@ -5,7 +5,7 @@ import ListCard from '../../components/structure/ListCard/listcard';
 const Home = () => {
    return (
       <div className="container home">
-         <h1 className="text-center mt-2">Lista de Tarefas</h1>
+         <h1 className="text-center text-primary mt-3">Lista de Tarefas</h1>
          <ListCard />
       </div>
    )
