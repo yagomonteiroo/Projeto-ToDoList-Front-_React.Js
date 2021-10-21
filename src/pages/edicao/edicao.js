@@ -19,8 +19,13 @@ const Edicao = (props) => {
       // faz uma chamada para api para pegar o objeto de acordo com o id.
       const response = await Api.fetchGetById(_id);
       const result = await response.json();
+
+      const resultNovo = {
+         ...result,
+         prazo: result.prazo.split("-").reverse().join("-"),
+      }
       // atualizo o meu estado de acordo com o resultado.
-      setTarefa(result);
+      setTarefa(resultNovo);
    };
 
    const handleFieldsChange = (event) => {
@@ -37,9 +42,8 @@ const Edicao = (props) => {
       evento.preventDefault();
       // faco uma copia do estado com obj atualizado.
       const tarefaObj = { ...tarefa };
-      // transforma o salario em inteiro.
-      const data= new Date(tarefaObj.prazo)
-      tarefaObj.prazo = ((data.getDate() )) + "/" + ((data.getMonth() + 1)) + "/" + data.getFullYear();
+      tarefaObj.prazo = transformDate(tarefaObj.prazo)
+
       try {
          const response = await Api.fetchPut(tarefaObj, _id);
          const result = await response.json();
@@ -50,8 +54,11 @@ const Edicao = (props) => {
       }
    };
 
+
+
    const transformDate = (prazo) => {
-      return moment(prazo).utc().format('YYYY-MM-DD')};
+      return moment(prazo).utc().format('DD-MM-YYYY')
+   };
 
 
    return (
@@ -69,18 +76,18 @@ const Edicao = (props) => {
                   <div className="row">
                      <div className="col">
                         <div className="form-floating mb-3">
-                           <input type="text" className="form-control" name="titulo" id="floatingInput" placeholder="Digite o Titulo" value={tarefa.titulo} onChange={handleFieldsChange}/>
+                           <input type="text" className="form-control" name="titulo" id="floatingInput" placeholder="Digite o Titulo" value={tarefa.titulo} onChange={handleFieldsChange} />
                            <label htmlFor="floatingInput">Titulo</label>
                         </div>
                      </div>
-                     
+
                      <div className="col">
                         <div className="form-floating">
-                           <input type="text" className="form-control" name="prazo" value={tarefa.prazo} id="floatingprazo" placeholder="Digite a descrição da tarefa" onChange={handleFieldsChange} />
+                           <input value={tarefa.prazo} onChange={handleFieldsChange} type="date" className="form-control" name="prazo" id="floatingprazo" placeholder="Digite a descrição da tarefa"/>
                            <label htmlFor="floatingprazo">Prazo</label>
                         </div>
                      </div>
-                     
+
                   </div>
                   <div className="row">
                      <div className="col">
@@ -95,7 +102,7 @@ const Edicao = (props) => {
                      </div>
                      <div className="col">
                         <div className="form-floating">
-                           <select value={tarefa.status} className="form-control" name="status" id="floatingstatus" placeholder="Digite a Status"  onChange={handleFieldsChange}>
+                           <select value={tarefa.status} className="form-control" name="status" id="floatingstatus" placeholder="Digite a Status" onChange={handleFieldsChange}>
                               <option value="a fazer">A fazer</option>
                               <option value="fazendo">Fazendo</option>
                               <option value="feito">Feito</option>
@@ -106,11 +113,11 @@ const Edicao = (props) => {
                   </div>
                   <div className="row">
                      <div className="col mb-1">
-                           <div className="form-floating">
-                              <input type="text" className="form-control" name="descricao" onChange={handleFieldsChange} id="floatingdescricao" placeholder="Digite a descrição da tarefa" value={tarefa.descricao} />
-                              <label htmlFor="floatingdescricao">Descrição</label>
-                           </div>
-                        </div>   
+                        <div className="form-floating">
+                           <input type="text" className="form-control" name="descricao" onChange={handleFieldsChange} id="floatingdescricao" placeholder="Digite a descrição da tarefa" value={tarefa.descricao} />
+                           <label htmlFor="floatingdescricao">Descrição</label>
+                        </div>
+                     </div>
                   </div>
                   <div className="col d-flex justify-content-center mt-4">
                      <button className="btn btn-primary mx-5 px-5 " type="submit">Enviar</button>
